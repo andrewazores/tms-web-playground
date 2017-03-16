@@ -39,7 +39,9 @@
               <span class="card-pf-utilization-card-details-line-2">of 1000 MHz</span>
             </span>
               </p>
-              <div id="chart-pf-donut-1" ng-controller="vmCpuDonutChartController"></div>
+              <div ng-controller="vmCpuDonutChartController">
+                  <div id="chart-pf-donut-1" pf-donut-pct-chart config="config" data="data"></div>
+              </div>
               <div class="chart-pf-sparkline" id="chart-pf-sparkline-1" ng-controller="vmCpuSparklineChartController"></div>
             </div>
           </div>

@@ -1,5 +1,5 @@
-angular.module( 'apf.vmCpuModule',
-  [])
+angular.module('apf.vmCpuModule',
+  ['ngResource'])
   .config(['$routeProvider', function ($routeProvider) {
     'use strict';
     $routeProvider
