@@ -16,10 +16,14 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
     $scope.data = {
       used: 0,
       total: 100,
+      xLabel: 'dates',
+      yLabel: 'used',
       xData: ['dates'],
       yData: ['used']
     };
     var self = this;
+    self.timeStamps = [];
+    self.usages = [];
 
     $interval(function() {
       CpuStats.query({}, function(result) {
@@ -30,9 +34,20 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
           sum += usage[i];
         }
         sum = Math.floor(sum / usage.length);
+
         $scope.data.used = sum;
-        $scope.data.xData.push(time);
-        $scope.data.yData.push(sum);
+        self.timeStamps.push(time);
+        self.usages.push(sum);
+
+        while (self.timeStamps.length > 15) {
+          self.timeStamps.shift();
+        }
+        while (self.usages.length > 15) {
+          self.usages.shift();
+        }
+
+        $scope.data.xData = [$scope.data.xLabel].concat(self.timeStamps);
+        $scope.data.yData = [$scope.data.yLabel].concat(self.usages);
       });
     }, 2000);
   }]);
