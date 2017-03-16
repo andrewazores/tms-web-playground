@@ -4,49 +4,20 @@
   </ol>
 
   <div class="blank-slate-pf" style="">
-    <div class="blank-slate-pf-icon">
-      <i class="fa fa-globe"></i>
-    </div>
 
-    <h1>CPU!</h1>
-    <p>This is where CPU stats will be shown!</p>
+    <div ng-controller="vmCpuChartController" class="row" style="display:inline-block; width: 100%">
+      <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
+      <div class="col-md-12">
+        <div id="cpu-chart"
+             pf-utilization-trend-chart
+             config="config"
+             donut-config="donutConfig"
+             sparkline-config="sparklineConfig"
+             chart-data="data"
+             donut-center-label="percent"></div>
+      </div>
+    </div><!-- /row -->
 
-    <div class="blank-slate-pf-main-action">
-      <p>WOOO CPU!</p>
-    </div>
   </div>
 </div>
 
-
-<div class="container-fluid container-cards-pf">
-  <div class="row row-cards-pf">
-    <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
-    <div class="col-md-12">
-      <div class="card-pf card-pf-utilization">
-        <div class="card-pf-heading">
-          <h2 class="card-pf-title">
-            Utilization
-          </h2>
-        </div>
-        <div class="card-pf-body">
-          <div class="row">
-            <div class="col-xs-12 col-sm-4 col-md-4">
-              <h3 class="card-pf-subtitle">CPU</h3>
-              <p class="card-pf-utilization-details">
-                <span class="card-pf-utilization-card-details-count">50</span>
-                <span class="card-pf-utilization-card-details-description">
-              <span class="card-pf-utilization-card-details-line-1">Available</span>
-              <span class="card-pf-utilization-card-details-line-2">of 1000 MHz</span>
-            </span>
-              </p>
-              <div ng-controller="vmCpuDonutChartController">
-                  <div id="chart-pf-donut-1" pf-donut-pct-chart config="config" data="data"></div>
-              </div>
-              <div class="chart-pf-sparkline" id="chart-pf-sparkline-1" ng-controller="vmCpuSparklineChartController"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div><!-- /row -->
-</div><!-- /container -->
