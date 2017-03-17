@@ -1,12 +1,12 @@
-<div class="container-fluid container-cards-pf" ng-controller="vmCpuController">
+<div class="container-fluid" ng-controller="vmCpuController">
   <ol class="breadcrumb" style="margin-bottom: 0px;">
     <li><a href="#vm-overview">{{vmName}}</a></li>
     <li>CPU</li>
   </ol>
 
-  <div class="blank-slate-pf" style="">
+  <div class="container-fluid blank-slate-pf container-cards-pf">
 
-    <div class="card-pf card-pf-view">
+    <div class="card-pf card-pf-view col-lg-3 col-md-6">
       <div class="card-pf-body">
         <div class="card-pf-heading-kebab">
           <div class="dropdown pull-right dropdown-kebab-pf">
@@ -25,15 +25,13 @@
 
         <div ng-controller="vmCpuChartController" class="row" style="display:inline-block; width: 100%">
           <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
-          <div class="col-md-12">
-            <div id="cpu-chart"
-                 pf-utilization-trend-chart
-                 config="config"
-                 donut-config="donutConfig"
-                 sparkline-config="sparklineConfig"
-                 chart-data="data"
-                 donut-center-label="percent">
-            </div>
+          <div id="cpu-chart"
+               pf-utilization-trend-chart
+               config="config"
+               donut-config="donutConfig"
+               sparkline-config="sparklineConfig"
+               chart-data="data"
+               donut-center-label="percent">
           </div>
         </div><!-- /row -->
       </div>
