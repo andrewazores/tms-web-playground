@@ -34,7 +34,7 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
       if (!$scope.refreshEnabled) {
         return;
       }
-      CpuStats.query({}, function (result) {
+      CpuStats.query({}, function success (result) {
         var usage = result.response[0].perProcessorUsage;
         var time = new Date(parseInt(result.response[0].timeStamp.$numberLong));
         var sum = 0;
@@ -49,6 +49,9 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
 
         $scope.data.xData = DataUtil.assemble(self.xLabel, DataUtil.trim(self.timeStamps, 15));
         $scope.data.yData = DataUtil.assemble(self.yLabel, DataUtil.trim(self.usages, 15));
+        $('#updateFailedNotification').hide();
+      }, function failure (result) {
+        $('#updateFailedNotification').show();
       });
     };
     $interval(update, 2000);

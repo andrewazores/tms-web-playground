@@ -3,5 +3,7 @@ angular.module('apf.vmCpuModule').controller('vmCpuController', ['$scope',
     'use strict';
     $scope.refreshEnabled = true;
     $scope.vmName = 'FooVm';
+
+    $('#updateFailedNotification').hide();
   }
 ]);
