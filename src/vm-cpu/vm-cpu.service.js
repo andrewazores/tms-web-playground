@@ -1,9 +1,9 @@
 angular
   .module('apf.vmCpuModule')
-  .factory('CpuStats', ['$resource',
-    function($resource) {
+  .factory('CpuStats', ['thermostatWebServerUrl', '$resource',
+    function(thermostatEndpoint, $resource) {
       'use strict';
-      return $resource('http://127.0.0.1:3000/cpu-stats/latest', {}, {
+      return $resource(thermostatEndpoint + '/cpu-stats/latest', {}, {
         query: {
           method: 'GET'
         }

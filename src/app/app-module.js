@@ -43,4 +43,4 @@ angular.module ('apf.appModule', [
     $translateProvider.translations('default', 'en');
     $translateProvider.preferredLanguage('default');
   }
-]);
+]).constant('thermostatWebServerUrl', 'http://127.0.0.1:3000');
