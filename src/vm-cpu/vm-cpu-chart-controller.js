@@ -1,5 +1,5 @@
-angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', '$interval', 'CpuStats',
-  function VmCpuChartController($scope, $interval, CpuStats) {
+angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', '$interval', 'CpuStats', 'DataUtil',
+  function VmCpuChartController($scope, $interval, CpuStats, DataUtil) {
     'use strict';
     $scope.donutConfig = {
       thresholds: {
@@ -16,16 +16,16 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
     $scope.data = {
       used: 0,
       total: 100,
-      xLabel: 'dates',
-      yLabel: 'used',
       xData: ['dates'],
       yData: ['used']
     };
-    var self = this;
-    self.timeStamps = [];
-    self.usages = [];
+    this.xLabel = 'dates';
+    this.yLabel = 'used';
+    this.timeStamps = [];
+    this.usages = [];
 
-    $interval(function() {
+    var self = this;
+    var update = function() {
       CpuStats.query({}, function(result) {
         var usage = result.response[0].perProcessorUsage;
         var time = new Date(parseInt(result.response[0].timeStamp.$numberLong));
@@ -39,15 +39,10 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
         self.timeStamps.push(time);
         self.usages.push(sum);
 
-        while (self.timeStamps.length > 15) {
-          self.timeStamps.shift();
-        }
-        while (self.usages.length > 15) {
-          self.usages.shift();
-        }
-
-        $scope.data.xData = [$scope.data.xLabel].concat(self.timeStamps);
-        $scope.data.yData = [$scope.data.yLabel].concat(self.usages);
+        $scope.data.xData = DataUtil.assemble(self.xLabel, DataUtil.trim(self.timeStamps, 15));
+        $scope.data.yData = DataUtil.assemble(self.yLabel, DataUtil.trim(self.usages, 15));
       });
-    }, 2000);
+    };
+    $interval(update, 2000);
+    update();
   }]);

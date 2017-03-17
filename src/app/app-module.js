@@ -24,7 +24,10 @@ angular.module ('apf.appModule', [
   'apf.vmClassesModule',
   'apf.vmBytemanModule',
   'apf.vmNotificationsModule',
-  'apf.vmNotesModule'
+  'apf.vmNotesModule',
+
+  // utility services
+  'apf.dataUtilModule'
 ]).config(['$routeProvider', '$translateProvider',
   function ($routeProvider, $translateProvider) {
     'use strict';
