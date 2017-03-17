@@ -1,5 +1,5 @@
 angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', '$interval', 'CpuStats', 'DataUtil',
-  function VmCpuChartController($scope, $interval, CpuStats, DataUtil) {
+  function VmCpuChartController ($scope, $interval, CpuStats, DataUtil) {
     'use strict';
     $scope.donutConfig = {
       thresholds: {
@@ -25,8 +25,8 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
     this.usages = [];
 
     var self = this;
-    var update = function() {
-      CpuStats.query({}, function(result) {
+    var update = function () {
+      CpuStats.query({}, function (result) {
         var usage = result.response[0].perProcessorUsage;
         var time = new Date(parseInt(result.response[0].timeStamp.$numberLong));
         var sum = 0;

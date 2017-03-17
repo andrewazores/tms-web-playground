@@ -1,10 +1,10 @@
 angular
   .module('apf.dataUtilModule')
   .factory('DataUtil', [
-    function() {
+    function () {
       'use strict';
       return {
-        trim : function(arr, lim) {
+        trim : function (arr, lim) {
           var newArr = arr.slice();
           while (newArr.length > lim) {
             newArr.shift();
@@ -12,7 +12,7 @@ angular
           return newArr;
         },
 
-        assemble: function(title, samples) {
+        assemble: function (title, samples) {
           return [title].concat(samples);
         }
 
