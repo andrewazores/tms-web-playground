@@ -8,6 +8,11 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
       }
     };
     $scope.sparklineConfig = {
+      axis: {
+        y: {
+          max: 100
+        }
+      }
     };
     $scope.config = {
       title: 'CPU Utilization',
