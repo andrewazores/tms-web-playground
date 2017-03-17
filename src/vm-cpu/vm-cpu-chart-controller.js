@@ -26,6 +26,9 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
 
     var self = this;
     var update = function () {
+      if (!$scope.refreshEnabled) {
+        return;
+      }
       CpuStats.query({}, function (result) {
         var usage = result.response[0].perProcessorUsage;
         var time = new Date(parseInt(result.response[0].timeStamp.$numberLong));
