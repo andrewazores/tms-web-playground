@@ -54,12 +54,18 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
         $('#updateFailedNotification').show();
       });
     };
-    var updateTask = $interval(update, 2000);
     update();
 
     var stop = function () {
-      $interval.cancel(updateTask);
+      if (angular.isDefined(self.updateTask)) {
+        $interval.cancel(self.updateTask);
+      }
     };
+
+    $scope.$watch('updateFreq', function (newVal, oldVal) {
+      stop();
+      self.updateTask = $interval(update, newVal * 1000);
+    });
 
     $scope.$on("$destroy", stop);
   }]);

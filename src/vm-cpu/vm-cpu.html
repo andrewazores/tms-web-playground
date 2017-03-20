@@ -26,6 +26,14 @@
                 </label>
               </li>
               <li>
+                <label>Update Frequency</label>
+                <select class="combobox" ng-model="updateFreq" convert-to-number>
+                  <option value="2">Every 2 Seconds</option>
+                  <option value="5">Every 5 Seconds</option>
+                  <option value="60">Every 1 Minute</option>
+                </select>
+              </li>
+              <li>
                 <label>Sample Period</label>
                 <select class="combobox" ng-model="samplePeriod" convert-to-number>
                   <option value="5">10 Seconds</option>
