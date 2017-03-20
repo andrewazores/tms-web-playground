@@ -1,16 +1,28 @@
 angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', '$interval', 'CpuStats',
   function VmCpuChartController ($scope, $interval, CpuStats) {
     'use strict';
+
+    this.xLabel = 'dates';
+    this.yLabel = 'used';
+    this.timeStamps = [];
+    this.usages = [];
+
+    $scope.data = {
+      used: 0,
+      total: 100,
+      xData: [this.xLabel],
+      yData: [this.yLabel]
+    };
     $scope.donutConfig = {
       thresholds: {
-        warning: 40,
-        error: 85
+        warning: Math.floor(0.4 * $scope.data.total),
+        error: Math.floor(0.85 * $scope.data.total)
       }
     };
     $scope.sparklineConfig = {
       axis: {
         y: {
-          max: 100
+          max: $scope.data.total
         }
       }
     };
@@ -18,16 +30,6 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
       title: 'CPU Utilization',
       units: 'CPU %'
     };
-    this.xLabel = 'dates';
-    this.yLabel = 'used';
-    $scope.data = {
-      used: 0,
-      total: 100,
-      xData: [this.xLabel],
-      yData: [this.yLabel]
-    };
-    this.timeStamps = [];
-    this.usages = [];
 
     var self = this;
     var update = function () {
@@ -46,6 +48,7 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
 
         $scope.data.xData = _.union([self.xLabel], _.takeRight(self.timeStamps, $scope.samplePeriod));
         $scope.data.yData = _.union([self.yLabel], _.takeRight(self.usages, $scope.samplePeriod));
+
         $('#updateFailedNotification').hide();
       }, function failure (result) {
         $('#updateFailedNotification').show();
