@@ -47,8 +47,8 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
         self.timeStamps.push(time);
         self.usages.push(sum);
 
-        $scope.data.xData = DataUtil.assemble(self.xLabel, DataUtil.trim(self.timeStamps, 15));
-        $scope.data.yData = DataUtil.assemble(self.yLabel, DataUtil.trim(self.usages, 15));
+        $scope.data.xData = DataUtil.assemble(self.xLabel, DataUtil.trim(self.timeStamps, $scope.samplePeriod));
+        $scope.data.yData = DataUtil.assemble(self.yLabel, DataUtil.trim(self.usages, $scope.samplePeriod));
         $('#updateFailedNotification').hide();
       }, function failure (result) {
         $('#updateFailedNotification').show();

@@ -25,6 +25,13 @@
                   <input id="enabled-checkbox" type="checkbox" ng-model="refreshEnabled">Refresh</input>
                 </label>
               </li>
+              <li>
+                <label>Sample Period</label>
+                <select class="combobox" ng-model="samplePeriod" convert-to-number>
+                  <option value="5">10 Seconds</option>
+                  <option value="30">1 Minute</option>
+                </select>
+              </li>
             </ul>
           </div>
         </div>
