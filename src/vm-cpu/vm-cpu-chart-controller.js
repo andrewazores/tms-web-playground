@@ -59,6 +59,7 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
     var stop = function () {
       if (angular.isDefined(self.updateTask)) {
         $interval.cancel(self.updateTask);
+        self.updateTask = undefined;
       }
     };
 
