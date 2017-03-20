@@ -18,14 +18,14 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
       title: 'CPU Utilization',
       units: 'CPU %'
     };
+    this.xLabel = 'dates';
+    this.yLabel = 'used';
     $scope.data = {
       used: 0,
       total: 100,
-      xData: ['dates'],
-      yData: ['used']
+      xData: [this.xLabel],
+      yData: [this.yLabel]
     };
-    this.xLabel = 'dates';
-    this.yLabel = 'used';
     this.timeStamps = [];
     this.usages = [];
 
