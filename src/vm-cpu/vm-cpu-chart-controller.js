@@ -1,5 +1,5 @@
-angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', '$interval', 'CpuStats', 'DataUtil',
-  function VmCpuChartController ($scope, $interval, CpuStats, DataUtil) {
+angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', '$interval', 'CpuStats',
+  function VmCpuChartController ($scope, $interval, CpuStats) {
     'use strict';
     $scope.donutConfig = {
       thresholds: {
@@ -47,8 +47,8 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
         self.timeStamps.push(time);
         self.usages.push(sum);
 
-        $scope.data.xData = DataUtil.assemble(self.xLabel, _.takeRight(self.timeStamps, $scope.samplePeriod));
-        $scope.data.yData = DataUtil.assemble(self.yLabel, _.takeRight(self.usages, $scope.samplePeriod));
+        $scope.data.xData = _.union([self.xLabel], _.takeRight(self.timeStamps, $scope.samplePeriod));
+        $scope.data.yData = _.union([self.yLabel], _.takeRight(self.usages, $scope.samplePeriod));
         $('#updateFailedNotification').hide();
       }, function failure (result) {
         $('#updateFailedNotification').show();

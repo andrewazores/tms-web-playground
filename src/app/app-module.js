@@ -25,10 +25,7 @@ angular
     'apf.vmClassesModule',
     'apf.vmBytemanModule',
     'apf.vmNotificationsModule',
-    'apf.vmNotesModule',
-
-    // utility services
-    'apf.dataUtilModule'
+    'apf.vmNotesModule'
   ])
   .config(['$routeProvider', '$translateProvider',
     function ($routeProvider, $translateProvider) {
