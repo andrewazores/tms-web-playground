@@ -19,8 +19,8 @@ angular
                 $scope.data.push({
                   title : space.name,
                   data : {
-                    used : parseInt(space.used.$numberLong),
-                    total : parseInt(space.capacity.$numberLong)
+                    used : Math.floor(parseInt(space.used.$numberLong) / (1024 * 1024)),
+                    total : Math.floor(parseInt(space.capacity.$numberLong) / (1024 * 1024))
                   }
                 });
               }
