@@ -1,26 +1,13 @@
 <div class="container-fluid container-cards-pf" ng-controller="vmMemory.memoryController">
   <ol class="breadcrumb" style="margin-bottom: 0px;">
-    <li>Memory</li>
+    <li><a href="#vm-overview">Overview</a></li>
     <li>Memory</li>
   </ol>
 
-  <div class="blank-slate-pf" style="">
-    <div class="blank-slate-pf-icon">
-      <i class="fa fa-globe"></i>
-    </div>
+  <div class="container-fluid blank-slate-pf">
 
-    <h1>Memory Regions!</h1>
+      <ng-include src="templateUrl"></ng-include>
 
-    <div class="blank-slate-pf-main-action">
-      <div ng-repeat="stat in data">
-        <p>{{stat.agentId}} @ {{parseDate(stat.timeStamp)}}</p>
-        <div ng-repeat="gen in stat.generations">
-          <p>{{gen.name}} [ {{gen.collector}} ] : {{gen.capacity.$numberLong}} / {{gen.maxCapacity.$numberLong}}</p>
-          <div ng-repeat="space in gen.spaces">
-            <p>{{space.name}} : {{space.used.$numberLong}} / ({{space.capacity.$numberLong}} | {{space.maxCapacity.$numberLong}})</p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
+
 </div>
