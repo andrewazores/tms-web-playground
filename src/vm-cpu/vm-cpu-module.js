@@ -4,7 +4,6 @@ angular.module('apf.vmCpuModule',
     'use strict';
     $routeProvider
       .when('/vm-cpu', {
-        templateUrl: 'src/vm-cpu/vm-cpu.html',
-        controller: 'vmCpuController'
+        templateUrl: 'src/vm-cpu/vm-cpu.html'
       });
   }]);
