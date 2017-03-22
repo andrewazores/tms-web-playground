@@ -1,6 +1,6 @@
 <div class="container-fluid" ng-controller="vmCpuController">
   <ol class="breadcrumb" style="margin-bottom: 0px;">
-    <li><a href="#vm-overview">{{vmName}}</a></li>
+    <li><a href="#vm-overview">{{::vmName}}</a></li>
     <li>CPU</li>
   </ol>
 
@@ -46,11 +46,10 @@
 
         <div ng-controller="vmCpuChartController" class="row" style="display:inline-block; width: 100%">
           <!-- Important:  if you need to nest additional .row within a .row.row-cards-pf, do *not* use .row-cards-pf on the nested .row  -->
-          <div id="cpu-chart"
-               pf-utilization-trend-chart
-               config="config"
-               donut-config="donutConfig"
-               sparkline-config="sparklineConfig"
+          <div pf-utilization-trend-chart
+               config="::config"
+               donut-config="::donutConfig"
+               sparkline-config="::sparklineConfig"
                chart-data="data"
                donut-center-label="percent">
           </div>
