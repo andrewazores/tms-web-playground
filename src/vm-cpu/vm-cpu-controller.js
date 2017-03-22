@@ -3,8 +3,8 @@ angular.module('apf.vmCpuModule').controller('vmCpuController', ['$scope',
     'use strict';
     $scope.refreshEnabled = true;
     $scope.vmName = 'FooVm';
-    $scope.updateFreq = "2";
-    $scope.samplePeriod = "5";
+    $scope.updateFreq = '2';
+    $scope.samplePeriod = '5';
 
     $('#updateFailedNotification').hide();
   }
