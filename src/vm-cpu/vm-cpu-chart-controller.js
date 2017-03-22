@@ -38,9 +38,10 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
       }
       CpuStats.query({}, function success (result) {
         var usage = result.response[0].perProcessorUsage;
+        var cpuCount = usage.length;
         var time = new Date(parseInt(result.response[0].timeStamp.$numberLong));
 
-        var sum = Math.floor(_.sum(usage));
+        var sum = Math.floor(_.sum(usage) / cpuCount);
 
         $scope.data.used = sum;
         self.timeStamps.push(time);
