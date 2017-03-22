@@ -5,7 +5,16 @@ angular.module('apf.vmCpuModule').controller('vmCpuController', ['$scope',
     $scope.vmName = 'FooVm';
     $scope.updateFreq = '2';
     $scope.samplePeriod = '5';
+    $scope.notifications = [];
 
-    $('#updateFailedNotification').hide();
+    $scope.addNotification = function (notification) {
+      if (_.indexOf($scope.notifications, notification)) {
+        $scope.notifications.push(notification);
+      }
+    };
+
+    $scope.removeNotification = function (notification) {
+      _.remove($scope.notifications, _.identity(notification));
+    };
   }
 ]);
