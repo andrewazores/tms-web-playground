@@ -9,8 +9,7 @@ angular.module ('apf.vmMemoryModule',
         redirectTo: '/vm-memory/memory'
       })
       .when('/vm-memory/memory', {
-        templateUrl: 'src/vm-memory/memory/memory.html',
-        controller: 'vmMemory.memoryController'
+        templateUrl: 'src/vm-memory/memory/memory.html'
       })
       .when('/vm-memory/tlab', {
         templateUrl: 'src/vm-memory/tlab/tlab.html',
