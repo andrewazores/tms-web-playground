@@ -14,8 +14,8 @@ if (useLiveData) {
 } else {
   angular
     .module('apf.vmCpuModule')
-    .factory('CpuStats', ['thermostatWebServerUrl', '$resource',
-      function (thermostatWebServerUrl, $resource) {
+    .factory('CpuStats', ['thermostatWebServerUrl',
+      function (thermostatWebServerUrl) {
         'use strict';
         return {
           query: function (config, onSuccess, onFailure) {
