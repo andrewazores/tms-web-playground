@@ -17,15 +17,18 @@ angular
           owner: '='
         },
         templateUrl: 'src/vm-cpu/tms-notification-center.html',
-        controller: function ($scope, $element, $attrs) {
-          tmsNotificationService.addListener($attrs.owner, function (notifications) {
-            $scope.notifications = Array.from(notifications);
-          });
+        controller: [
+          '$scope', '$element', '$attrs',
+          function ($scope, $element, $attrs) {
+            tmsNotificationService.addListener($attrs.owner, function (notifications) {
+              $scope.notifications = Array.from(notifications);
+            });
 
-          $scope.$on('$destroy', function () {
-            tmsNotificationService.removeListener($attrs.owner);
-          });
-        }
+            $scope.$on('$destroy', function () {
+              tmsNotificationService.removeListener($attrs.owner);
+            });
+          }
+        ]
       };
     }
   ])
