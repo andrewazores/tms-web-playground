@@ -1,5 +1,5 @@
-angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', '$interval', 'CpuStats',
-  function VmCpuChartController ($scope, $interval, CpuStats) {
+angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', '$interval', 'CpuStats', 'tmsNotificationService',
+  function VmCpuChartController ($scope, $interval, CpuStats, tmsNotificationService) {
     'use strict';
 
     this.xLabel = 'dates';
@@ -55,9 +55,9 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
         $scope.data.xData = _.union([self.xLabel], _.takeRight(self.timeStamps, $scope.samplePeriod));
         $scope.data.yData = _.union([self.yLabel], _.takeRight(self.usages, $scope.samplePeriod));
 
-        $scope.removeNotification(self.updateFailedNotification);
+        tmsNotificationService.removeNotification('vmCpu', self.updateFailedNotification);
       }, function failure (result) {
-        $scope.addNotification(self.updateFailedNotification);
+        tmsNotificationService.addNotification('vmCpu', self.updateFailedNotification);
       });
     };
     update();
