@@ -6,11 +6,6 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
     this.yLabel = 'used';
     this.timeStamps = [];
     this.usages = [];
-    this.updateFailedNotification = {
-      type: 'danger',
-      header: 'Update failed.',
-      message: 'Unable to retrieve CPU stats.'
-    };
 
     $scope.data = {
       used: 0,
@@ -55,17 +50,24 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
         $scope.data.xData = _.union([self.xLabel], _.takeRight(self.timeStamps, $scope.samplePeriod));
         $scope.data.yData = _.union([self.yLabel], _.takeRight(self.usages, $scope.samplePeriod));
 
-        tmsNotificationService.removeNotification('vmCpu', self.updateFailedNotification);
+        if (self.notificationId) {
+          tmsNotificationService.removeNotification('vmCpu', self.notificationId);
+          self.notificationId = null;
+        }
       }, function failure (result) {
-        tmsNotificationService.addNotification('vmCpu', self.updateFailedNotification);
+        if (!self.notificationId) {
+          self.notificationId = tmsNotificationService.addNotification('vmCpu',
+            { type: 'danger', header: 'Update Failed.', message: 'Unable to retrieve CPU stats.' });
+        }
       });
     };
     update();
 
     var stop = function () {
-      if (angular.isDefined(self.updateTask)) {
+      tmsNotificationService.clearNotifications('vmCpu');
+      if (self.updateTask) {
         $interval.cancel(self.updateTask);
-        self.updateTask = undefined;
+        self.updateTask = null;
       }
     };
 
