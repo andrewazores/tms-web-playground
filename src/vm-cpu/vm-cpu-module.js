@@ -20,7 +20,7 @@ angular
         controller: ['$scope', '$element', '$attrs',
           function ($scope, $element, $attrs) {
             tmsNotificationService.addListener($attrs.owner, function (notifications) {
-              $scope.notifications = Array.from(notifications);
+              $scope.notifications = notifications;
             });
 
             $scope.$on('$destroy', function () {
@@ -33,42 +33,59 @@ angular
   .factory('tmsNotificationService', function () {
     'use strict';
 
-    return {
-      notifications: [],
-      listeners: {},
+    var notifications = [];
+    var listeners = {};
 
-      addListener: function (owner, listener) {
-        this.listeners[owner] = listener;
-      },
+    var addOwner = function (owner) {
+      if (!angular.isDefined(listeners[owner])) {
+        listeners[owner] = [];
+      }
+      if (!angular.isDefined(notifications[owner])) {
+        notifications[owner] = new Set();
+      }
+    };
 
-      removeListener: function (owner) {
-        this.listeners[owner] = undefined;
-      },
+    this.addListener = function (owner, listener) {
+      addOwner(owner);
+      listeners[owner].push(listener);
+    };
 
-      addNotification: function (owner, notification) {
-        if (!this.notifications[owner]) {
-          this.notifications[owner] = new Set();
-        }
-        if (!this.notifications[owner].has(notification)) {
-          this.notifications[owner].add(notification);
-          this.listeners[owner](this.notifications[owner].values());
-        }
-      },
+    this.removeListener = function (owner, listener) {
+      addOwner(owner);
+      _.pull(listeners, listener);
+    };
 
-      removeNotification: function (owner, notification) {
-        if (this.notifications[owner]) {
-          if (this.notifications[owner].has(notification)) {
-            this.notifications[owner].delete(notification);
-            this.listeners[owner](this.notifications[owner].values());
-          }
-        }
-      },
-
-      clearNotifications: function (owner) {
-        if (this.notifications[owner]) {
-          this.notifications[owner].clear();
+    this.addNotification = function (owner, notification) {
+      addOwner(owner);
+      if (!notifications[owner].has(notification)) {
+        notifications[owner].add(notification);
+        for (var i = 0; i < listeners[owner].length; i++) {
+          listeners[owner][i](Array.from(notifications[owner].values()));
         }
       }
+    };
+
+    this.removeNotification = function (owner, notification) {
+      addOwner(owner);
+      if (notifications[owner].has(notification)) {
+        notifications[owner].delete(notification);
+        for (var i = 0; i < listeners[owner].length; i++) {
+          listeners[owner][i](Array.from(notifications[owner].values()));
+        }
+      }
+    };
+
+    this.clearNotifications = function (owner) {
+      addOwner(owner);
+      notifications[owner].clear();
+    };
+
+    return {
+      addListener: this.addListener,
+      removeListener: this.removeListener,
+      addNotification: this.addNotification,
+      removeNotification: this.removeNotification,
+      clearNotifications: this.clearNotifications
     };
   })
 ;
