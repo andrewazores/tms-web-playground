@@ -47,8 +47,11 @@ angular.module('apf.vmCpuModule').controller('vmCpuChartController', ['$scope', 
         self.timeStamps.push(time);
         self.usages.push(sum);
 
-        $scope.data.xData = _.union([self.xLabel], _.takeRight(self.timeStamps, $scope.samplePeriod));
-        $scope.data.yData = _.union([self.yLabel], _.takeRight(self.usages, $scope.samplePeriod));
+        self.timeStamps = _.takeRight(self.timeStamps, $scope.samplePeriod);
+        self.usages = _.takeRight(self.usages, $scope.samplePeriod);
+
+        $scope.data.xData = _.union([self.xLabel], self.timeStamps);
+        $scope.data.yData = _.union([self.yLabel], self.usages);
 
         if (self.notificationId) {
           tmsNotificationService.removeNotification('vmCpu', self.notificationId);
