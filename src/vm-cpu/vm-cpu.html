@@ -16,12 +16,12 @@
               <span class="fa fa-ellipsis-v"></span>
             </button>
             <ul class="dropdown-menu" aria-labelledby="dropdownKebab">
-              <li onclick=" event.stopPropagation();">
+              <li onclick="event.stopPropagation();">
                 <label class="checkbox-inline">
                   <input id="enabled-checkbox" type="checkbox" ng-model="refreshEnabled">Refresh</input>
                 </label>
               </li>
-              <li onclick=" event.stopPropagation();">
+              <li onclick="event.stopPropagation();">
                 <label>Update Frequency</label>
                 <select class="combobox" ng-model="updateFreq" convert-to-number>
                   <option value="2">Every 2 Seconds</option>
@@ -29,7 +29,7 @@
                   <option value="60">Every 1 Minute</option>
                 </select>
               </li>
-              <li onclick=" event.stopPropagation();">
+              <li onclick="event.stopPropagation();">
                 <label>Sample Period</label>
                 <select class="combobox" ng-model="samplePeriod" convert-to-number>
                   <option value="5">10 Seconds</option>
